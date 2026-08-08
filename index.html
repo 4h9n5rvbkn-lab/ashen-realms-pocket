@@ -1474,7 +1474,21 @@ return;
 }
 
 hero=JSON.parse(saved);
-
+  
+hero.unlocked=hero.unlocked||["Ember Hollow"];
+hero.companions=hero.companions||[];
+hero.quests=hero.quests||[];
+hero.inventory=hero.inventory||{Potion:3};
+hero.gold=hero.gold||25;
+hero.weapon=hero.weapon||"Rusty Sword";
+hero.armor=hero.armor||"Traveler's Clothes";
+hero.level=hero.level||1;
+hero.xp=hero.xp||0;
+hero.nextXp=hero.nextXp||100;
+hero.maxHp=hero.maxHp||100;
+hero.hp=hero.hp||hero.maxHp;
+hero.baseAttack=hero.baseAttack||10;
+hero.baseDefense=hero.baseDefense||10;
 document.getElementById("titleScreen").classList.add("hidden");
 document.getElementById("gameScreen").classList.remove("hidden");
 
