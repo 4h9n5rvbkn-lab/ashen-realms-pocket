@@ -2,121 +2,26 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ashen Realms: Pocket Edition</title>
 
 <style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: #100d0b;
-  color: #eadcc8;
-  font-family: Georgia, serif;
-}
-
-#game {
-  max-width: 720px;
-  margin: auto;
-  padding: 14px;
-}
-
-h1, h2, h3 {
-  color: #d99a45;
-}
-
-.panel {
-  background: #1c1511;
-  border: 1px solid #503622;
-  border-radius: 12px;
-  padding: 16px;
-  margin-bottom: 14px;
-}
-
-button {
-  width: 100%;
-  padding: 13px;
-  margin: 6px 0;
-  border: 1px solid #80552c;
-  border-radius: 8px;
-  background: #291d15;
-  color: #eadcc8;
-  font-size: 16px;
-}
-
-button:active {
-  background: #51341f;
-}
-
-input, select {
-  width: 100%;
-  padding: 12px;
-  margin: 6px 0 12px;
-  border-radius: 7px;
-  border: 1px solid #654528;
-  background: #100d0b;
-  color: #eadcc8;
-  font-size: 16px;
-}
-
-.story {
-  line-height: 1.65;
-  white-space: pre-line;
-}
-
-.hidden {
-  display: none;
-}
-
-.stats {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-}
-
-.stat {
-  background: #120f0d;
-  padding: 9px;
-  border-radius: 6px;
-}
-
-.small {
-  color: #b9aa95;
-  font-size: 14px;
-}
-
-.enemy {
-  border: 1px solid #713b32;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.bar {
-  height: 14px;
-  background: #080706;
-  border-radius: 8px;
-  overflow: hidden;
-  margin: 5px 0 10px;
-}
-
-.barFill {
-  height: 100%;
-  background: #8f4035;
-  width: 100%;
-}
-
-.item {
-  padding: 7px 0;
-  border-bottom: 1px solid #38281d;
-}
-
-#saveMessage {
-  text-align: center;
-  color: #b9aa95;
-}
+*{box-sizing:border-box}
+body{margin:0;background:#100d0b;color:#eadcc8;font-family:Georgia,serif}
+#game{max-width:720px;margin:auto;padding:14px}
+h1,h2,h3{color:#d99a45}
+.panel{background:#1c1511;border:1px solid #503622;border-radius:12px;padding:16px;margin-bottom:14px}
+button{width:100%;padding:13px;margin:6px 0;border:1px solid #80552c;border-radius:8px;background:#291d15;color:#eadcc8;font-size:16px}
+button:active{background:#51341f}
+input,select{width:100%;padding:12px;margin:6px 0 12px;border-radius:7px;border:1px solid #654528;background:#100d0b;color:#eadcc8;font-size:16px}
+.story{line-height:1.65;white-space:pre-line}
+.hidden{display:none}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.stat{background:#120f0d;padding:9px;border-radius:6px}
+.item{padding:8px 0;border-bottom:1px solid #38281d}
+.small{color:#b9aa95;font-size:14px}
+.bar{height:14px;background:#080706;border-radius:8px;overflow:hidden;margin:5px 0 10px}
+.barFill{height:100%;width:100%;background:#8f4035}
 </style>
 </head>
 
@@ -124,405 +29,329 @@ input, select {
 
 <div id="game">
 
-<!-- TITLE -->
-
 <section id="titleScreen" class="panel">
-  <h1>🔥 Ashen Realms</h1>
-  <h2>Pocket Edition</h2>
-
-  <p>
-    The old kingdoms have fallen.
-    The Emberlands burn beneath forgotten skies.
-    Your legend begins now.
-  </p>
-
-  <button onclick="showCreation()">⚔️ Begin Adventure</button>
-  <button onclick="loadGame()">💾 Continue</button>
+<h1>🔥 Ashen Realms</h1>
+<h2>Pocket Edition</h2>
+<p>The old kingdoms have fallen. The Emberlands burn beneath forgotten skies. Your legend begins now.</p>
+<button onclick="showCreation()">⚔️ Begin Adventure</button>
+<button onclick="loadGame()">💾 Continue</button>
 </section>
-
-
-<!-- CHARACTER CREATION -->
 
 <section id="creationScreen" class="panel hidden">
-  <h2>Create Your Hero</h2>
+<h2>Create Your Hero</h2>
 
-  <label>Name</label>
-  <input id="heroName" placeholder="Enter your hero's name">
+<label>Name</label>
+<input id="heroName" placeholder="Enter your hero's name">
+<button onclick="randomName()">🎲 Random Name</button>
 
-  <button onclick="randomName()">🎲 Random Name</button>
+<label>Race</label>
+<select id="heroRace">
+<option>Human</option>
+<option>Elf</option>
+<option>Dwarf</option>
+<option>Orc</option>
+<option>Halfling</option>
+</select>
 
-  <label>Race</label>
-  <select id="heroRace">
-    <option>Human</option>
-    <option>Elf</option>
-    <option>Dwarf</option>
-    <option>Orc</option>
-    <option>Halfling</option>
-  </select>
+<label>Class</label>
+<select id="heroClass">
+<option>Warrior</option>
+<option>Ranger</option>
+<option>Mage</option>
+<option>Rogue</option>
+<option>Cleric</option>
+</select>
 
-  <label>Class</label>
-  <select id="heroClass">
-    <option>Warrior</option>
-    <option>Ranger</option>
-    <option>Mage</option>
-    <option>Rogue</option>
-    <option>Cleric</option>
-  </select>
-
-  <button onclick="randomHero()">🎲 Random Hero</button>
-  <button onclick="startGame()">Continue</button>
+<button onclick="randomHero()">🎲 Random Hero</button>
+<button onclick="startGame()">Continue</button>
 </section>
-
-
-<!-- GAME -->
 
 <section id="gameScreen" class="hidden">
 
-  <div class="panel">
-    <h2 id="location">Ember Hollow</h2>
+<div class="panel">
+<h2 id="location">Ember Hollow</h2>
 
-    <div class="stats">
-      <div class="stat">❤️ HP: <span id="hp"></span>/<span id="maxHp"></span></div>
-      <div class="stat">⭐ Level: <span id="level"></span></div>
-      <div class="stat">⚔️ Attack: <span id="attack"></span></div>
-      <div class="stat">🛡️ Defense: <span id="defense"></span></div>
-      <div class="stat">✨ XP: <span id="xp"></span>/<span id="nextXp"></span></div>
-      <div class="stat">🪙 Gold: <span id="gold"></span></div>
-    </div>
-  </div>
+<div class="stats">
+<div class="stat">❤️ HP: <span id="hp"></span>/<span id="maxHp"></span></div>
+<div class="stat">⭐ Level: <span id="level"></span></div>
+<div class="stat">⚔️ Attack: <span id="attack"></span></div>
+<div class="stat">🛡️ Defense: <span id="defense"></span></div>
+<div class="stat">✨ XP: <span id="xp"></span>/<span id="nextXp"></span></div>
+<div class="stat">🪙 Gold: <span id="gold"></span></div>
+</div>
+</div>
 
+<div class="panel">
+<h3>⚔️ Equipment</h3>
+<div id="equipment"></div>
+</div>
 
-  <div class="panel">
-    <h3>🎒 Inventory</h3>
-    <div id="inventory"></div>
-  </div>
+<div class="panel">
+<h3>🎒 Inventory</h3>
+<div id="inventory"></div>
+</div>
 
+<div class="panel story" id="story"></div>
+<div class="panel" id="choices"></div>
 
-  <div class="panel story" id="story"></div>
-
-  <div class="panel" id="choices"></div>
-
-  <div class="panel">
-    <button onclick="showHeroSheet()">📜 Hero Sheet</button>
-    <button onclick="saveGame()">💾 Save Game</button>
-    <div id="saveMessage"></div>
-  </div>
+<div class="panel">
+<button onclick="showHeroSheet()">📜 Hero Sheet</button>
+<button onclick="saveGame()">💾 Save Game</button>
+<div id="saveMessage"></div>
+</div>
 
 </section>
-
-
-<!-- HERO SHEET -->
 
 <section id="heroSheet" class="panel hidden">
-  <h2>📜 Hero Sheet</h2>
-
-  <div id="heroDetails"></div>
-
-  <button onclick="closeHeroSheet()">Return</button>
+<h2>📜 Hero Sheet</h2>
+<div id="heroDetails"></div>
+<button onclick="closeHeroSheet()">Return</button>
 </section>
 
-
-<!-- COMBAT -->
-
 <section id="combatScreen" class="panel hidden">
+<h2>⚔️ Combat</h2>
 
-  <h2>⚔️ Combat</h2>
+<div class="panel">
+<h3 id="enemyName"></h3>
+❤️ HP: <span id="enemyHp"></span>/<span id="enemyMaxHp"></span>
+<div class="bar"><div id="enemyBar" class="barFill"></div></div>
+<div class="small" id="enemyDescription"></div>
+</div>
 
-  <div class="enemy">
-    <h3 id="enemyName"></h3>
-    <div>❤️ HP: <span id="enemyHp"></span>/<span id="enemyMaxHp"></span></div>
+<div class="panel story" id="combatLog"></div>
 
-    <div class="bar">
-      <div id="enemyBar" class="barFill"></div>
-    </div>
-
-    <div class="small" id="enemyDescription"></div>
-  </div>
-
-  <div class="panel story" id="combatLog"></div>
-
-  <button onclick="playerAttack()">⚔️ Attack</button>
-  <button onclick="usePotion()">🧪 Drink Potion</button>
-  <button onclick="attemptFlee()">🏃 Retreat</button>
-
+<button id="attackButton" onclick="playerAttack()">⚔️ Attack</button>
+<button id="abilityButton" onclick="useAbility()">✨ Class Ability</button>
+<button onclick="usePotion()">🧪 Drink Potion</button>
+<button onclick="attemptFlee()">🏃 Retreat</button>
 </section>
 
 </div>
 
-
 <script>
 
-/* =========================
-   GAME DATA
-========================= */
-
-const names = [
-  "Alden",
-  "Kael",
-  "Elara",
-  "Rowan",
-  "Mira",
-  "Thorne",
-  "Lyra",
-  "Darian",
-  "Seren",
-  "Garrick",
-  "Arin",
-  "Vera"
+const names=[
+"Alden","Kael","Elara","Rowan","Mira","Thorne",
+"Lyra","Darian","Seren","Garrick","Arin","Vera"
 ];
 
-const races = [
-  "Human",
-  "Elf",
-  "Dwarf",
-  "Orc",
-  "Halfling"
-];
+const races=["Human","Elf","Dwarf","Orc","Halfling"];
 
-const classes = [
-  "Warrior",
-  "Ranger",
-  "Mage",
-  "Rogue",
-  "Cleric"
-];
+const classes=["Warrior","Ranger","Mage","Rogue","Cleric"];
 
-const enemyTypes = [
-  {
-    name: "Ash Wolf",
-    hp: 35,
-    attack: 8,
-    defense: 3,
-    xp: 20,
-    gold: 8,
-    description: "A creature covered in strange gray ash."
-  },
-  {
-    name: "Ruins Goblin",
-    hp: 45,
-    attack: 10,
-    defense: 4,
-    xp: 28,
-    gold: 12,
-    description: "A scavenger armed with a battered blade."
-  },
-  {
-    name: "Ember Wraith",
-    hp: 55,
-    attack: 12,
-    defense: 6,
-    xp: 40,
-    gold: 18,
-    description: "A ghostly figure surrounded by dying embers."
-  },
-  {
-    name: "Forest Brute",
-    hp: 70,
-    attack: 14,
-    defense: 7,
-    xp: 55,
-    gold: 25,
-    description: "A huge creature guarding something deeper in the woods."
-  }
-];
-
-
-/* =========================
-   HERO
-========================= */
-
-let hero = {
-  name: "",
-  race: "",
-  class: "",
-  level: 1,
-
-  hp: 100,
-  maxHp: 100,
-
-  attack: 10,
-  defense: 10,
-
-  xp: 0,
-  nextXp: 100,
-
-  gold: 25,
-
-  inventory: {
-    Potion: 3,
-    "Old Coin": 0
-  }
+const weapons={
+"Rusty Sword":{attack:0},
+"Iron Sword":{attack:4},
+"Moonblade":{attack:8},
+"Ember Staff":{attack:9},
+"Shadow Dagger":{attack:7}
 };
 
+const armor={
+"Traveler's Clothes":{defense:0},
+"Iron Armor":{defense:5},
+"Ranger Cloak":{defense:3},
+"Arcane Robe":{defense:2},
+"Shadow Leather":{defense:4},
+"Holy Vestments":{defense:5}
+};
 
-/* =========================
-   CURRENT GAME
-========================= */
+const enemies=[
+{
+name:"Ash Wolf",hp:35,attack:8,defense:3,xp:20,gold:8,
+description:"A creature covered in strange gray ash.",
+loot:["Potion","Old Coin"]
+},
+{
+name:"Ruins Goblin",hp:45,attack:10,defense:4,xp:28,gold:12,
+description:"A scavenger armed with a battered blade.",
+loot:["Iron Sword","Potion"]
+},
+{
+name:"Ember Wraith",hp:55,attack:12,defense:6,xp:40,gold:18,
+description:"A ghostly figure surrounded by dying embers.",
+loot:["Ember Staff","Potion"]
+},
+{
+name:"Forest Brute",hp:70,attack:14,defense:7,xp:55,gold:25,
+description:"A huge creature guarding something deeper in the woods.",
+loot:["Iron Armor","Potion"]
+}
+];
 
-let enemy = null;
-let currentLocation = "Ember Hollow";
+let hero={
+name:"",
+race:"",
+class:"",
+level:1,
+hp:100,
+maxHp:100,
+baseAttack:10,
+baseDefense:10,
+xp:0,
+nextXp:100,
+gold:25,
+weapon:"Rusty Sword",
+armor:"Traveler's Clothes",
+inventory:{
+Potion:3,
+"Old Coin":0
+},
+abilityReady:true
+};
 
+let enemy=null;
+let currentLocation="Ember Hollow";
 
-/* =========================
-   CHARACTER CREATION
-========================= */
-
-function showCreation() {
-
-  document.getElementById("titleScreen").classList.add("hidden");
-  document.getElementById("creationScreen").classList.remove("hidden");
+function showCreation(){
+document.getElementById("titleScreen").classList.add("hidden");
+document.getElementById("creationScreen").classList.remove("hidden");
 }
 
-
-function randomName() {
-
-  const name =
-    names[Math.floor(Math.random() * names.length)];
-
-  document.getElementById("heroName").value = name;
+function randomName(){
+document.getElementById("heroName").value=
+names[Math.floor(Math.random()*names.length)];
 }
 
-
-function randomHero() {
-
-  document.getElementById("heroName").value =
-    names[Math.floor(Math.random() * names.length)];
-
-  document.getElementById("heroRace").value =
-    races[Math.floor(Math.random() * races.length)];
-
-  document.getElementById("heroClass").value =
-    classes[Math.floor(Math.random() * classes.length)];
+function randomHero(){
+document.getElementById("heroName").value=
+names[Math.floor(Math.random()*names.length)];
+document.getElementById("heroRace").value=
+races[Math.floor(Math.random()*races.length)];
+document.getElementById("heroClass").value=
+classes[Math.floor(Math.random()*classes.length)];
 }
 
+function startGame(){
 
-function startGame() {
+hero.name=document.getElementById("heroName").value.trim()||
+names[Math.floor(Math.random()*names.length)];
 
-  hero.name =
-    document.getElementById("heroName").value.trim()
-    || names[Math.floor(Math.random() * names.length)];
+hero.race=document.getElementById("heroRace").value;
+hero.class=document.getElementById("heroClass").value;
 
-  hero.race =
-    document.getElementById("heroRace").value;
+applyClassBonuses();
 
-  hero.class =
-    document.getElementById("heroClass").value;
+document.getElementById("creationScreen").classList.add("hidden");
+document.getElementById("gameScreen").classList.remove("hidden");
 
-  applyClassBonuses();
-
-  document.getElementById("creationScreen").classList.add("hidden");
-  document.getElementById("gameScreen").classList.remove("hidden");
-
-  updateUI();
-
-  openingStory();
+updateUI();
+openingStory();
 }
 
+function applyClassBonuses(){
 
-/* =========================
-   CLASS BONUSES
-========================= */
-
-function applyClassBonuses() {
-
-  if (hero.class === "Warrior") {
-    hero.maxHp += 25;
-    hero.hp = hero.maxHp;
-    hero.attack += 4;
-    hero.defense += 3;
-  }
-
-  if (hero.class === "Ranger") {
-    hero.attack += 5;
-    hero.defense += 2;
-  }
-
-  if (hero.class === "Mage") {
-    hero.maxHp -= 10;
-    hero.hp = hero.maxHp;
-    hero.attack += 8;
-  }
-
-  if (hero.class === "Rogue") {
-    hero.attack += 6;
-    hero.defense += 4;
-  }
-
-  if (hero.class === "Cleric") {
-    hero.maxHp += 10;
-    hero.hp = hero.maxHp;
-    hero.attack += 2;
-    hero.defense += 5;
-  }
+if(hero.class==="Warrior"){
+hero.maxHp+=25;
+hero.hp=hero.maxHp;
+hero.baseAttack+=4;
+hero.baseDefense+=3;
 }
 
-
-/* =========================
-   UI
-========================= */
-
-function updateUI() {
-
-  document.getElementById("hp").textContent = hero.hp;
-  document.getElementById("maxHp").textContent = hero.maxHp;
-
-  document.getElementById("level").textContent = hero.level;
-
-  document.getElementById("attack").textContent = hero.attack;
-  document.getElementById("defense").textContent = hero.defense;
-
-  document.getElementById("xp").textContent = hero.xp;
-  document.getElementById("nextXp").textContent = hero.nextXp;
-
-  document.getElementById("gold").textContent = hero.gold;
-
-  updateInventory();
+if(hero.class==="Ranger"){
+hero.baseAttack+=5;
+hero.baseDefense+=2;
 }
 
-
-function updateInventory() {
-
-  const inventory =
-    document.getElementById("inventory");
-
-  inventory.innerHTML = "";
-
-  Object.keys(hero.inventory).forEach(item => {
-
-    const amount = hero.inventory[item];
-
-    if (amount > 0) {
-
-      const div = document.createElement("div");
-
-      div.className = "item";
-
-      div.textContent =
-        item + " × " + amount;
-
-      inventory.appendChild(div);
-    }
-
-  });
-
-  if (inventory.innerHTML === "") {
-    inventory.textContent = "Your inventory is empty.";
-  }
+if(hero.class==="Mage"){
+hero.maxHp-=10;
+hero.hp=hero.maxHp;
+hero.baseAttack+=8;
 }
 
+if(hero.class==="Rogue"){
+hero.baseAttack+=6;
+hero.baseDefense+=4;
+}
 
-/* =========================
-   OPENING STORY
-========================= */
+if(hero.class==="Cleric"){
+hero.maxHp+=10;
+hero.hp=hero.maxHp;
+hero.baseAttack+=2;
+hero.baseDefense+=5;
+}
+}
 
-function openingStory() {
+function getAttack(){
+return hero.baseAttack+
+(weapons[hero.weapon]?.attack||0);
+}
 
-  currentLocation = "Ember Hollow";
+function getDefense(){
+return hero.baseDefense+
+(armor[hero.armor]?.defense||0);
+}
 
-  document.getElementById("location").textContent =
-    currentLocation;
+function updateUI(){
 
-  document.getElementById("story").textContent =
+document.getElementById("hp").textContent=hero.hp;
+document.getElementById("maxHp").textContent=hero.maxHp;
+document.getElementById("level").textContent=hero.level;
+document.getElementById("attack").textContent=getAttack();
+document.getElementById("defense").textContent=getDefense();
+document.getElementById("xp").textContent=hero.xp;
+document.getElementById("nextXp").textContent=hero.nextXp;
+document.getElementById("gold").textContent=hero.gold;
+
+updateEquipment();
+updateInventory();
+}
+
+function updateEquipment(){
+
+document.getElementById("equipment").innerHTML=
+`🗡️ Weapon: ${hero.weapon}<br>
+🛡️ Armor: ${hero.armor}`;
+}
+
+function updateInventory(){
+
+let html="";
+
+Object.keys(hero.inventory).forEach(item=>{
+if(hero.inventory[item]>0){
+html+=`<div class="item">${item} × ${hero.inventory[item]}`;
+
+if(weapons[item]){
+html+=`<button onclick="equipWeapon('${item}')">Equip</button>`;
+}
+
+if(armor[item]){
+html+=`<button onclick="equipArmor('${item}')">Equip</button>`;
+}
+
+html+=`</div>`;
+}
+});
+
+document.getElementById("inventory").innerHTML=
+html||"Your inventory is empty.";
+}
+
+function equipWeapon(item){
+
+hero.weapon=item;
+updateUI();
+
+document.getElementById("story").textContent=
+`You equip the ${item}.\n\nYour attack power increases.`;
+}
+
+function equipArmor(item){
+
+hero.armor=item;
+updateUI();
+
+document.getElementById("story").textContent=
+`You equip the ${item}.\n\nYour defenses increase.`;
+}
+
+function openingStory(){
+
+currentLocation="Ember Hollow";
+document.getElementById("location").textContent=currentLocation;
+
+document.getElementById("story").textContent=
 `You awaken beside the ancient road leading into Ember Hollow.
 
 Smoke rises from the distant village walls.
@@ -531,105 +360,79 @@ Something has disturbed the old ruins beneath the forest.
 
 You are ${hero.name}, a ${hero.race} ${hero.class}.
 
-The road ahead divides into three paths.`;
+Your adventure begins now.`;
 
-  document.getElementById("choices").innerHTML = `
-    <button onclick="enterVillage()">🏘️ Enter Ember Hollow</button>
-    <button onclick="exploreForest()">🌲 Explore the Forest</button>
-    <button onclick="inspectRuins()">🏚️ Investigate the Ruins</button>
-  `;
+document.getElementById("choices").innerHTML=`
+<button onclick="enterVillage()">🏘️ Enter Ember Hollow</button>
+<button onclick="exploreForest()">🌲 Explore the Forest</button>
+<button onclick="inspectRuins()">🏚️ Investigate the Ruins</button>`;
 }
 
+function enterVillage(){
 
-/* =========================
-   VILLAGE
-========================= */
+currentLocation="Ember Hollow";
+document.getElementById("location").textContent=currentLocation;
 
-function enterVillage() {
-
-  currentLocation = "Ember Hollow";
-
-  document.getElementById("location").textContent =
-    currentLocation;
-
-  document.getElementById("story").textContent =
-`You enter Ember Hollow.
-
-The villagers are frightened.
+document.getElementById("story").textContent=
+`The villagers are frightened.
 
 An old keeper watches you from the doorway of a ruined inn.
 
 "The ruins have awakened," he says.
 
-"The forest road may no longer be safe."`;
+"Whatever happens next will change Ember Hollow."`;
 
-  document.getElementById("choices").innerHTML = `
-    <button onclick="talkKeeper()">🧙 Speak with the Keeper</button>
-    <button onclick="shopPotion()">🧪 Buy a Potion — 10 Gold</button>
-    <button onclick="exploreForest()">🌲 Investigate the Forest</button>
-  `;
+document.getElementById("choices").innerHTML=`
+<button onclick="talkKeeper()">🧙 Speak with the Keeper</button>
+<button onclick="shopPotion()">🧪 Buy Potion — 10 Gold</button>
+<button onclick="exploreForest()">🌲 Investigate the Forest</button>`;
 }
 
+function talkKeeper(){
 
-function talkKeeper() {
-
-  document.getElementById("story").textContent =
+document.getElementById("story").textContent=
 `The keeper lowers his voice.
 
 "Three nights ago, strange lights appeared beneath the ancient ruins."
 
-"Since then, creatures have begun wandering out of the forest."
+"Since then, creatures have wandered out of the forest."
 
 He points toward the northern road.
 
-"If you're going there, be prepared."`;
+"Be careful."`;
 
-  document.getElementById("choices").innerHTML = `
-    <button onclick="exploreForest()">🌲 Follow the Northern Road</button>
-    <button onclick="inspectRuins()">🏚️ Search the Ancient Ruins</button>
-    <button onclick="enterVillage()">🏘️ Stay in the Village</button>
-  `;
+document.getElementById("choices").innerHTML=`
+<button onclick="exploreForest()">🌲 Follow the Northern Road</button>
+<button onclick="inspectRuins()">🏚️ Search the Ruins</button>
+<button onclick="enterVillage()">🏘️ Stay in the Village</button>`;
 }
 
+function shopPotion(){
 
-function shopPotion() {
-
-  if (hero.gold < 10) {
-
-    document.getElementById("story").textContent =
-      "You don't have enough gold for a potion.";
-
-    return;
-  }
-
-  hero.gold -= 10;
-
-  hero.inventory.Potion =
-    (hero.inventory.Potion || 0) + 1;
-
-  updateUI();
-
-  document.getElementById("story").textContent =
-    "The keeper gives you a red healing potion.";
-
-  document.getElementById("choices").innerHTML = `
-    <button onclick="enterVillage()">Return</button>
-  `;
+if(hero.gold<10){
+document.getElementById("story").textContent=
+"You don't have enough gold.";
+return;
 }
 
+hero.gold-=10;
+hero.inventory.Potion=(hero.inventory.Potion||0)+1;
 
-/* =========================
-   FOREST
-========================= */
+updateUI();
 
-function exploreForest() {
+document.getElementById("story").textContent=
+"The keeper gives you a healing potion.";
 
-  currentLocation = "Whispering Forest";
+document.getElementById("choices").innerHTML=
+`<button onclick="enterVillage()">Return</button>`;
+}
 
-  document.getElementById("location").textContent =
-    currentLocation;
+function exploreForest(){
 
-  document.getElementById("story").textContent =
+currentLocation="Whispering Forest";
+document.getElementById("location").textContent=currentLocation;
+
+document.getElementById("story").textContent=
 `You enter the Whispering Forest.
 
 Black ash covers the ground.
@@ -638,49 +441,37 @@ The deeper you travel, the quieter the forest becomes.
 
 Then you hear movement nearby.`;
 
-  document.getElementById("choices").innerHTML = `
-    <button onclick="randomEncounter()">⚔️ Investigate the Movement</button>
-    <button onclick="continueForest()">🌲 Follow the Ash Trail</button>
-    <button onclick="enterVillage()">🏘️ Return to Ember Hollow</button>
-  `;
+document.getElementById("choices").innerHTML=`
+<button onclick="randomEncounter()">⚔️ Investigate the Movement</button>
+<button onclick="continueForest()">🌲 Follow the Ash Trail</button>
+<button onclick="enterVillage()">🏘️ Return to Ember Hollow</button>`;
 }
 
+function continueForest(){
 
-function continueForest() {
+if(Math.random()<0.7){
+randomEncounter();
+return;
+}
 
-  const chance = Math.random();
+document.getElementById("story").textContent=
+`The ash trail leads beneath an enormous tree.
 
-  if (chance < 0.65) {
-    randomEncounter();
-    return;
-  }
-
-  document.getElementById("story").textContent =
-`You follow the ash trail.
-
-Beneath the roots of an enormous tree, you discover stone stairs descending into darkness.
+Stone stairs descend into darkness.
 
 Something below is still awake.`;
 
-  document.getElementById("choices").innerHTML = `
-    <button onclick="enterDungeon()">🗝️ Enter the Dungeon</button>
-    <button onclick="exploreForest()">🌲 Search the Forest</button>
-  `;
+document.getElementById("choices").innerHTML=`
+<button onclick="enterDungeon()">🗝️ Enter the Dungeon</button>
+<button onclick="exploreForest()">🌲 Search the Forest</button>`;
 }
 
+function inspectRuins(){
 
-/* =========================
-   RUINS
-========================= */
+currentLocation="Ancient Ruins";
+document.getElementById("location").textContent=currentLocation;
 
-function inspectRuins() {
-
-  currentLocation = "Ancient Ruins";
-
-  document.getElementById("location").textContent =
-    currentLocation;
-
-  document.getElementById("story").textContent =
+document.getElementById("story").textContent=
 `Broken towers rise from the earth.
 
 At the center stands a sealed stone doorway.
@@ -689,17 +480,15 @@ A faint red glow leaks through its cracks.
 
 You hear something moving behind the door.`;
 
-  document.getElementById("choices").innerHTML = `
-    <button onclick="openDoor()">🔥 Touch the Ancient Seal</button>
-    <button onclick="randomEncounter()">⚔️ Search the Ruins</button>
-    <button onclick="enterVillage()">🏘️ Return to Ember Hollow</button>
-  `;
+document.getElementById("choices").innerHTML=`
+<button onclick="openDoor()">🔥 Touch the Ancient Seal</button>
+<button onclick="randomEncounter()">⚔️ Search the Ruins</button>
+<button onclick="enterVillage()">🏘️ Return to Ember Hollow</button>`;
 }
 
+function openDoor(){
 
-function openDoor() {
-
-  document.getElementById("story").textContent =
+document.getElementById("story").textContent=
 `The ancient seal cracks.
 
 A deep rumble passes through the ruins.
@@ -710,354 +499,307 @@ A staircase disappears beneath the earth.
 
 The Ashen Depths await.`;
 
-  document.getElementById("choices").innerHTML = `
-    <button onclick="enterDungeon()">🗝️ Enter the Ashen Depths</button>
-  `;
+document.getElementById("choices").innerHTML=
+`<button onclick="enterDungeon()">🗝️ Enter the Ashen Depths</button>`;
 }
 
+function randomEncounter(){
 
-/* =========================
-   RANDOM ENCOUNTERS
-========================= */
+const e=enemies[Math.floor(Math.random()*enemies.length)];
 
-function randomEncounter() {
+enemy={
+...e,
+maxHp:e.hp,
+loot:e.loot[Math.floor(Math.random()*e.loot.length)]
+};
 
-  const template =
-    enemyTypes[
-      Math.floor(Math.random() * enemyTypes.length)
-    ];
+document.getElementById("gameScreen").classList.add("hidden");
+document.getElementById("combatScreen").classList.remove("hidden");
 
-  enemy = {
-    name: template.name,
-    hp: template.hp,
-    maxHp: template.hp,
-    attack: template.attack,
-    defense: template.defense,
-    xp: template.xp,
-    gold: template.gold,
-    description: template.description
-  };
+document.getElementById("abilityButton").textContent=
+getAbilityName();
 
-  document.getElementById("gameScreen").classList.add("hidden");
-  document.getElementById("combatScreen").classList.remove("hidden");
+updateCombatUI();
 
-  updateCombatUI();
-
-  document.getElementById("combatLog").textContent =
-    `A ${enemy.name} appears!\n\n${enemy.description}`;
+document.getElementById("combatLog").textContent=
+`A ${enemy.name} appears!\n\n${enemy.description}`;
 }
 
+function getAbilityName(){
 
-/* =========================
-   COMBAT
-========================= */
-
-function updateCombatUI() {
-
-  document.getElementById("enemyName").textContent =
-    enemy.name;
-
-  document.getElementById("enemyHp").textContent =
-    enemy.hp;
-
-  document.getElementById("enemyMaxHp").textContent =
-    enemy.maxHp;
-
-  document.getElementById("enemyDescription").textContent =
-    enemy.description;
-
-  const percentage =
-    Math.max(0, (enemy.hp / enemy.maxHp) * 100);
-
-  document.getElementById("enemyBar").style.width =
-    percentage + "%";
-
-  updateUI();
+if(hero.class==="Warrior")return"🔥 Power Strike";
+if(hero.class==="Ranger")return"🏹 Precise Shot";
+if(hero.class==="Mage")return"🔮 Firebolt";
+if(hero.class==="Rogue")return"🗡️ Quick Strike";
+return"✨ Holy Light";
 }
 
+function updateCombatUI(){
 
-function playerAttack() {
+document.getElementById("enemyName").textContent=enemy.name;
+document.getElementById("enemyHp").textContent=enemy.hp;
+document.getElementById("enemyMaxHp").textContent=enemy.maxHp;
+document.getElementById("enemyDescription").textContent=enemy.description;
 
-  const damage =
-    Math.max(
-      1,
-      hero.attack +
-      randomNumber(1, 6) -
-      enemy.defense
-    );
+document.getElementById("enemyBar").style.width=
+Math.max(0,(enemy.hp/enemy.maxHp)*100)+"%";
 
-  enemy.hp -= damage;
-
-  let log =
-    `You attack the ${enemy.name} for ${damage} damage.`;
-
-  if (enemy.hp <= 0) {
-
-    enemy.hp = 0;
-
-    updateCombatUI();
-
-    winBattle(log);
-
-    return;
-  }
-
-  enemyTurn(log);
+updateUI();
 }
 
+function playerAttack(){
 
-function enemyTurn(previousLog) {
+const damage=Math.max(
+1,
+getAttack()+randomNumber(1,6)-enemy.defense
+);
 
-  const damage =
-    Math.max(
-      1,
-      enemy.attack +
-      randomNumber(1, 5) -
-      hero.defense
-    );
+enemy.hp-=damage;
 
-  hero.hp -= damage;
-
-  if (hero.hp < 0) {
-    hero.hp = 0;
-  }
-
-  const log =
-    previousLog +
-    `\n\nThe ${enemy.name} attacks you for ${damage} damage.`;
-
-  updateCombatUI();
-
-  document.getElementById("combatLog").textContent =
-    log;
-
-  if (hero.hp <= 0) {
-    defeat();
-  }
+if(enemy.hp<=0){
+enemy.hp=0;
+updateCombatUI();
+winBattle(`You attack for ${damage} damage.`);
+return;
 }
 
-
-function usePotion() {
-
-  if (!hero.inventory.Potion ||
-      hero.inventory.Potion <= 0) {
-
-    document.getElementById("combatLog").textContent =
-      "You don't have any potions.";
-
-    return;
-  }
-
-  hero.inventory.Potion--;
-
-  const healing = 30;
-
-  hero.hp =
-    Math.min(
-      hero.maxHp,
-      hero.hp + healing
-    );
-
-  const log =
-    `You drink a potion and recover ${healing} HP.`;
-
-  updateCombatUI();
-
-  enemyTurn(log);
+enemyTurn(`You attack for ${damage} damage.`);
 }
 
+function useAbility(){
 
-function attemptFlee() {
+if(!hero.abilityReady){
 
-  const chance = Math.random();
+document.getElementById("combatLog").textContent=
+"Your class ability is not ready yet.";
 
-  if (chance < 0.55) {
-
-    document.getElementById("combatLog").textContent =
-      "You successfully retreat.";
-
-    setTimeout(() => {
-      endCombat();
-      exploreForest();
-    }, 600);
-
-  } else {
-
-    enemyTurn(
-      "You try to retreat, but the enemy blocks your path."
-    );
-  }
+return;
 }
 
+let damage=0;
+let message="";
 
-/* =========================
-   BATTLE RESULTS
-========================= */
-
-function winBattle(log) {
-
-  hero.xp += enemy.xp;
-  hero.gold += enemy.gold;
-
-  const rewardText =
-    `\n\nVictory!\nYou gain ${enemy.xp} XP and ${enemy.gold} gold.`;
-
-  document.getElementById("combatLog").textContent =
-    log + rewardText;
-
-  checkLevelUp();
-
-  updateCombatUI();
-
-  document.querySelector("#combatScreen button:nth-of-type(1)")
-    .style.display = "none";
-
-  document.querySelector("#combatScreen button:nth-of-type(2)")
-    .style.display = "none";
-
-  document.querySelector("#combatScreen button:nth-of-type(3)")
-    .style.display = "none";
-
-  const continueButton =
-    document.createElement("button");
-
-  continueButton.textContent =
-    "➡️ Continue";
-
-  continueButton.onclick =
-    function() {
-
-      endCombat();
-
-      document.getElementById("gameScreen").classList.remove("hidden");
-
-      if (currentLocation === "Whispering Forest") {
-        exploreForest();
-      } else {
-        inspectRuins();
-      }
-    };
-
-  document.getElementById("combatScreen").appendChild(
-    continueButton
-  );
+if(hero.class==="Warrior"){
+damage=getAttack()+12;
+message="You unleash a devastating Power Strike!";
 }
 
+if(hero.class==="Ranger"){
+damage=getAttack()+14;
+message="You fire a Precise Shot!";
+}
 
-function defeat() {
+if(hero.class==="Mage"){
+damage=getAttack()+18;
+message="You cast Firebolt!";
+}
 
-  document.getElementById("combatLog").textContent =
+if(hero.class==="Rogue"){
+damage=getAttack()+10;
+message="You perform a lightning-fast Quick Strike!";
+}
+
+if(hero.class==="Cleric"){
+
+const healing=25;
+
+hero.hp=Math.min(hero.maxHp,hero.hp+healing);
+
+message=
+`You cast Holy Light and restore ${healing} HP.`;
+
+hero.abilityReady=false;
+
+updateUI();
+
+enemyTurn(message);
+
+setTimeout(()=>{
+hero.abilityReady=true;
+},1500);
+
+return;
+}
+
+damage=Math.max(1,damage-enemy.defense);
+
+enemy.hp-=damage;
+hero.abilityReady=false;
+
+if(enemy.hp<=0){
+enemy.hp=0;
+updateCombatUI();
+winBattle(`${message}\nYou deal ${damage} damage.`);
+return;
+}
+
+enemyTurn(`${message}\nYou deal ${damage} damage.`);
+
+setTimeout(()=>{
+hero.abilityReady=true;
+},1500);
+}
+
+function usePotion(){
+
+if(!hero.inventory.Potion){
+
+document.getElementById("combatLog").textContent=
+"You don't have any potions.";
+
+return;
+}
+
+hero.inventory.Potion--;
+
+const healing=30;
+
+hero.hp=Math.min(hero.maxHp,hero.hp+healing);
+
+enemyTurn(`You drink a potion and recover ${healing} HP.`);
+}
+
+function enemyTurn(log){
+
+const damage=Math.max(
+1,
+enemy.attack+randomNumber(1,5)-getDefense()
+);
+
+hero.hp=Math.max(0,hero.hp-damage);
+
+document.getElementById("combatLog").textContent=
+`${log}\n\nThe ${enemy.name} attacks for ${damage} damage.`;
+
+updateCombatUI();
+
+if(hero.hp<=0)defeat();
+}
+
+function attemptFlee(){
+
+if(Math.random()<0.55){
+
+document.getElementById("combatLog").textContent=
+"You escape into the darkness.";
+
+setTimeout(()=>{
+endCombat();
+exploreForest();
+},500);
+
+}else{
+
+enemyTurn(
+"The enemy blocks your escape."
+);
+}
+}
+
+function winBattle(log){
+
+hero.xp+=enemy.xp;
+hero.gold+=enemy.gold;
+
+let reward=
+`\n\nVictory!\n+${enemy.xp} XP\n+${enemy.gold} Gold`;
+
+if(enemy.loot){
+
+hero.inventory[enemy.loot]=
+(hero.inventory[enemy.loot]||0)+1;
+
+reward+=`\n🎁 Loot: ${enemy.loot}`;
+}
+
+document.getElementById("combatLog").textContent=
+log+reward;
+
+checkLevelUp();
+updateCombatUI();
+
+document.querySelectorAll("#combatScreen button")
+.forEach(b=>b.style.display="none");
+
+const button=document.createElement("button");
+
+button.textContent="➡️ Continue";
+
+button.onclick=()=>{
+endCombat();
+document.getElementById("gameScreen").classList.remove("hidden");
+exploreForest();
+};
+
+document.getElementById("combatScreen").appendChild(button);
+}
+
+function defeat(){
+
+document.getElementById("combatLog").textContent=
 `You have been defeated.
 
-Your journey does not end here.
+The villagers recover you and carry you back to Ember Hollow.
 
-The villagers recover you and bring you back to Ember Hollow.
+You lose 10 gold.`;
 
-Some of your gold is lost.`;
+hero.hp=Math.ceil(hero.maxHp/2);
+hero.gold=Math.max(0,hero.gold-10);
 
-  hero.hp =
-    Math.ceil(hero.maxHp * 0.5);
+document.querySelectorAll("#combatScreen button")
+.forEach(b=>b.style.display="none");
 
-  hero.gold =
-    Math.max(
-      0,
-      hero.gold - 10
-    );
+const button=document.createElement("button");
+button.textContent="🏘️ Return to Ember Hollow";
 
-  document.querySelectorAll("#combatScreen button")
-    .forEach(button => {
-      button.style.display = "none";
-    });
+button.onclick=()=>{
+endCombat();
+document.getElementById("gameScreen").classList.remove("hidden");
+enterVillage();
+};
 
-  const button =
-    document.createElement("button");
-
-  button.textContent =
-    "🏘️ Return to Ember Hollow";
-
-  button.onclick =
-    function() {
-
-      endCombat();
-
-      document.getElementById("gameScreen")
-        .classList.remove("hidden");
-
-      enterVillage();
-    };
-
-  document.getElementById("combatScreen")
-    .appendChild(button);
+document.getElementById("combatScreen").appendChild(button);
 }
 
+function endCombat(){
 
-function endCombat() {
+document.getElementById("combatScreen").classList.add("hidden");
+document.getElementById("gameScreen").classList.remove("hidden");
 
-  document.getElementById("combatScreen")
-    .classList.add("hidden");
+document.querySelectorAll("#combatScreen button")
+.forEach(b=>b.style.display="block");
 
-  document.getElementById("gameScreen")
-    .classList.remove("hidden");
+const buttons=document.querySelectorAll("#combatScreen button");
 
-  document.querySelectorAll("#combatScreen button")
-    .forEach(button => {
-      button.style.display = "block";
-    });
-
-  const extraButtons =
-    document.querySelectorAll(
-      "#combatScreen button"
-    );
-
-  if (extraButtons.length > 3) {
-    for (let i = 3; i < extraButtons.length; i++) {
-      extraButtons[i].remove();
-    }
-  }
+for(let i=4;i<buttons.length;i++){
+buttons[i].remove();
+}
 }
 
+function checkLevelUp(){
 
-/* =========================
-   LEVELING
-========================= */
+while(hero.xp>=hero.nextXp){
 
-function checkLevelUp() {
+hero.xp-=hero.nextXp;
+hero.level++;
+hero.nextXp=Math.floor(hero.nextXp*1.5);
 
-  while (hero.xp >= hero.nextXp) {
+hero.maxHp+=15;
+hero.hp=hero.maxHp;
+hero.baseAttack+=3;
+hero.baseDefense+=2;
 
-    hero.xp -= hero.nextXp;
-
-    hero.level++;
-
-    hero.nextXp =
-      Math.floor(hero.nextXp * 1.5);
-
-    hero.maxHp += 15;
-
-    hero.hp = hero.maxHp;
-
-    hero.attack += 3;
-
-    hero.defense += 2;
-
-    document.getElementById("combatLog").textContent +=
-      `\n\n⭐ LEVEL UP!\nYou are now level ${hero.level}!`;
-  }
+document.getElementById("combatLog").textContent+=
+`\n\n⭐ LEVEL UP!\nYou are now level ${hero.level}!`;
+}
 }
 
+function enterDungeon(){
 
-/* =========================
-   DUNGEON
-========================= */
+currentLocation="The Ashen Depths";
+document.getElementById("location").textContent=currentLocation;
 
-function enterDungeon() {
-
-  currentLocation = "The Ashen Depths";
-
-  document.getElementById("location").textContent =
-    currentLocation;
-
-  document.getElementById("story").textContent =
+document.getElementById("story").textContent=
 `Cold stone surrounds you.
 
 The entrance closes behind you.
@@ -1068,151 +810,102 @@ Somewhere below, something enormous moves.
 
 The dungeon has begun.`;
 
-  document.getElementById("choices").innerHTML = `
-    <button onclick="dungeonPath('left')">⬅️ Left Passage</button>
-    <button onclick="dungeonPath('middle')">⬆️ Central Passage</button>
-    <button onclick="dungeonPath('right')">➡️ Right Passage</button>
-  `;
+document.getElementById("choices").innerHTML=`
+<button onclick="dungeonPath()">⬅️ Left Passage</button>
+<button onclick="dungeonPath()">⬆️ Central Passage</button>
+<button onclick="dungeonPath()">➡️ Right Passage</button>`;
 }
 
+function dungeonPath(){
 
-function dungeonPath(path) {
-
-  const chance = Math.random();
-
-  if (chance < 0.7) {
-
-    randomEncounter();
-
-    return;
-  }
-
-  let text = "";
-
-  if (path === "left") {
-    text =
-      "The left passage leads to an abandoned armory. You find an old coin.";
-  }
-
-  if (path === "middle") {
-    text =
-      "The central passage descends toward a chamber glowing with ancient fire.";
-  }
-
-  if (path === "right") {
-    text =
-      "The right passage leads to a hidden underground shrine.";
-  }
-
-  hero.inventory["Old Coin"]++;
-
-  document.getElementById("story").textContent =
-    text +
-    "\n\nYou found an Old Coin.";
-
-  updateUI();
-
-  document.getElementById("choices").innerHTML = `
-    <button onclick="enterDungeon()">🗝️ Continue Exploring</button>
-  `;
+if(Math.random()<0.75){
+randomEncounter();
+return;
 }
 
+hero.inventory["Old Coin"]=
+(hero.inventory["Old Coin"]||0)+1;
 
-/* =========================
-   HERO SHEET
-========================= */
+document.getElementById("story").textContent=
+`You discover an abandoned chamber.
 
-function showHeroSheet() {
+An ancient coin rests on a stone altar.
 
-  document.getElementById("heroSheet")
-    .classList.remove("hidden");
+You take it.`;
 
-  document.getElementById("heroDetails").innerHTML = `
-    <p><strong>Name:</strong> ${hero.name}</p>
-    <p><strong>Race:</strong> ${hero.race}</p>
-    <p><strong>Class:</strong> ${hero.class}</p>
-    <p><strong>Level:</strong> ${hero.level}</p>
-    <p><strong>HP:</strong> ${hero.hp}/${hero.maxHp}</p>
-    <p><strong>Attack:</strong> ${hero.attack}</p>
-    <p><strong>Defense:</strong> ${hero.defense}</p>
-    <p><strong>XP:</strong> ${hero.xp}/${hero.nextXp}</p>
-    <p><strong>Gold:</strong> ${hero.gold}</p>
-  `;
+updateUI();
+
+document.getElementById("choices").innerHTML=
+`<button onclick="enterDungeon()">🗝️ Continue Exploring</button>`;
 }
 
+function showHeroSheet(){
 
-function closeHeroSheet() {
+document.getElementById("heroSheet").classList.remove("hidden");
 
-  document.getElementById("heroSheet")
-    .classList.add("hidden");
+document.getElementById("heroDetails").innerHTML=`
+<p><strong>Name:</strong> ${hero.name}</p>
+<p><strong>Race:</strong> ${hero.race}</p>
+<p><strong>Class:</strong> ${hero.class}</p>
+<p><strong>Level:</strong> ${hero.level}</p>
+<p><strong>HP:</strong> ${hero.hp}/${hero.maxHp}</p>
+<p><strong>Attack:</strong> ${getAttack()}</p>
+<p><strong>Defense:</strong> ${getDefense()}</p>
+<p><strong>Weapon:</strong> ${hero.weapon}</p>
+<p><strong>Armor:</strong> ${hero.armor}</p>
+<p><strong>XP:</strong> ${hero.xp}/${hero.nextXp}</p>
+<p><strong>Gold:</strong> ${hero.gold}</p>
+<p><strong>Ability:</strong> ${getAbilityName()}</p>`;
 }
 
-
-/* =========================
-   SAVE / LOAD
-========================= */
-
-function saveGame() {
-
-  localStorage.setItem(
-    "ashenRealmsSave",
-    JSON.stringify(hero)
-  );
-
-  document.getElementById("saveMessage").textContent =
-    "✓ Game saved on this device.";
+function closeHeroSheet(){
+document.getElementById("heroSheet").classList.add("hidden");
 }
 
+function saveGame(){
 
-function loadGame() {
+localStorage.setItem(
+"ashenRealmsSave",
+JSON.stringify(hero)
+);
 
-  const saved =
-    localStorage.getItem("ashenRealmsSave");
+document.getElementById("saveMessage").textContent=
+"✓ Game saved on this device.";
+}
 
-  if (!saved) {
+function loadGame(){
 
-    alert("No saved adventure found.");
+const saved=localStorage.getItem("ashenRealmsSave");
 
-    return;
-  }
+if(!saved){
+alert("No saved adventure found.");
+return;
+}
 
-  hero = JSON.parse(saved);
+hero=JSON.parse(saved);
 
-  document.getElementById("titleScreen")
-    .classList.add("hidden");
+document.getElementById("titleScreen").classList.add("hidden");
+document.getElementById("gameScreen").classList.remove("hidden");
 
-  document.getElementById("gameScreen")
-    .classList.remove("hidden");
+updateUI();
 
-  updateUI();
+currentLocation="Ember Hollow";
 
-  currentLocation = "Ember Hollow";
+document.getElementById("location").textContent=currentLocation;
 
-  document.getElementById("location").textContent =
-    currentLocation;
-
-  document.getElementById("story").textContent =
+document.getElementById("story").textContent=
 `Welcome back, ${hero.name}.
 
 Your adventure continues in Ember Hollow.`;
 
-  document.getElementById("choices").innerHTML = `
-    <button onclick="enterVillage()">🏘️ Enter the Village</button>
-    <button onclick="exploreForest()">🌲 Explore the Forest</button>
-    <button onclick="inspectRuins()">🏚️ Visit the Ruins</button>
-  `;
+document.getElementById("choices").innerHTML=`
+<button onclick="enterVillage()">🏘️ Enter the Village</button>
+<button onclick="exploreForest()">🌲 Explore the Forest</button>
+<button onclick="inspectRuins()">🏚️ Visit the Ruins</button>`;
 }
 
-
-/* =========================
-   UTILITIES
-========================= */
-
-function randomNumber(min, max) {
-
-  return Math.floor(
-    Math.random() * (max - min + 1)
-  ) + min;
+function randomNumber(min,max){
+return Math.floor(Math.random()*(max-min+1))+min;
 }
 
 </script>
