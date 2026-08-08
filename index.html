@@ -1,1 +1,496 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ashen Realms: Pocket Edition</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #120f0d;
+  color: #eadcc8;
+  font-family: Georgia, serif;
+}
+
+#game {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+}
+
+h1, h2 {
+  color: #d99a45;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin: 7px 0;
+  border: 1px solid #8b5a2b;
+  border-radius: 8px;
+  background: #271c16;
+  color: #eadcc8;
+  font-size: 16px;
+}
+
+button:active {
+  background: #51341f;
+}
+
+.panel {
+  background: #1c1511;
+  border: 1px solid #4e3522;
+  border-radius: 12px;
+  padding: 18px;
+  margin-bottom: 15px;
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin: 7px 0 12px;
+  border-radius: 6px;
+  border: 1px solid #654528;
+  background: #100d0b;
+  color: #eadcc8;
+}
+
+.story {
+  line-height: 1.6;
+  white-space: pre-line;
+}
+
+.hidden {
+  display: none;
+}
+
+.stat {
+  display: inline-block;
+  width: 48%;
+  padding: 8px;
+}
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+  <section id="titleScreen" class="panel">
+    <h1>🔥 Ashen Realms</h1>
+    <h2>Pocket Edition</h2>
+
+    <p>
+      The old kingdoms have fallen.
+      The Emberlands burn beneath forgotten skies.
+      Your legend begins now.
+    </p>
+
+    <button onclick="showCreation()">Begin Adventure</button>
+  </section>
+
+
+  <section id="creationScreen" class="panel hidden">
+    <h2>Create Your Hero</h2>
+
+    <label>Name</label>
+    <input id="heroName" placeholder="Enter your hero's name">
+
+    <button onclick="randomName()">🎲 Random Name</button>
+
+    <label>Race</label>
+    <select id="heroRace">
+      <option>Human</option>
+      <option>Elf</option>
+      <option>Dwarf</option>
+      <option>Orc</option>
+      <option>Halfling</option>
+    </select>
+
+    <label>Class</label>
+    <select id="heroClass">
+      <option>Warrior</option>
+      <option>Ranger</option>
+      <option>Mage</option>
+      <option>Rogue</option>
+      <option>Cleric</option>
+    </select>
+
+    <button onclick="randomHero()">⚔️ Random Hero</button>
+    <button onclick="startGame()">Continue</button>
+  </section>
+
+
+  <section id="gameScreen" class="hidden">
+
+    <div class="panel">
+      <h2 id="location">Ember Hollow</h2>
+
+      <div class="stat">❤️ HP: <span id="hp"></span></div>
+      <div class="stat">⚔️ Attack: <span id="attack"></span></div>
+      <div class="stat">🛡️ Defense: <span id="defense"></span></div>
+      <div class="stat">✨ Level: <span id="level"></span></div>
+    </div>
+
+    <div class="panel story" id="story"></div>
+
+    <div class="panel" id="choices"></div>
+
+  </section>
+
+</div>
+
+
+<script>
+
+let hero = {
+  name: "",
+  race: "",
+  class: "",
+  hp: 100,
+  attack: 10,
+  defense: 10,
+  level: 1
+};
+
+const names = [
+  "Alden",
+  "Kael",
+  "Elara",
+  "Rowan",
+  "Mira",
+  "Thorne",
+  "Lyra",
+  "Darian",
+  "Seren",
+  "Garrick"
+];
+
+const races = [
+  "Human",
+  "Elf",
+  "Dwarf",
+  "Orc",
+  "Halfling"
+];
+
+const classes = [
+  "Warrior",
+  "Ranger",
+  "Mage",
+  "Rogue",
+  "Cleric"
+];
+
+function showCreation() {
+  document.getElementById("titleScreen").classList.add("hidden");
+  document.getElementById("creationScreen").classList.remove("hidden");
+}
+
+function randomName() {
+  const name = names[Math.floor(Math.random() * names.length)];
+  document.getElementById("heroName").value = name;
+}
+
+function randomHero() {
+
+  document.getElementById("heroName").value =
+    names[Math.floor(Math.random() * names.length)];
+
+  document.getElementById("heroRace").value =
+    races[Math.floor(Math.random() * races.length)];
+
+  document.getElementById("heroClass").value =
+    classes[Math.floor(Math.random() * classes.length)];
+}
+
+function startGame() {
+
+  hero.name =
+    document.getElementById("heroName").value ||
+    names[Math.floor(Math.random() * names.length)];
+
+  hero.race =
+    document.getElementById("heroRace").value;
+
+  hero.class =
+    document.getElementById("heroClass").value;
+
+  document.getElementById("creationScreen").classList.add("hidden");
+  document.getElementById("gameScreen").classList.remove("hidden");
+
+  updateStats();
+
+  showOpening();
+}
+
+function updateStats() {
+
+  document.getElementById("hp").textContent = hero.hp;
+  document.getElementById("attack").textContent = hero.attack;
+  document.getElementById("defense").textContent = hero.defense;
+  document.getElementById("level").textContent = hero.level;
+}
+
+function showOpening() {
+
+  document.getElementById("story").textContent =
+`You awaken beside the ancient road leading into Ember Hollow.
+
+Smoke rises from the distant village walls.
+
+The forest behind you is silent.
+
+Something has disturbed the old ruins beneath the trees.
+
+You are ${hero.name}, a ${hero.race} ${hero.class}.
+
+Whatever awaits in Ember Hollow has already begun.`;
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="enterVillage()">🏘️ Enter Ember Hollow</button>
+    <button onclick="exploreForest()">🌲 Explore the Forest</button>
+    <button onclick="inspectRuins()">🏚️ Investigate the Ancient Ruins</button>
+  `;
+}
+
+function enterVillage() {
+
+  document.getElementById("location").textContent =
+    "Ember Hollow";
+
+  document.getElementById("story").textContent =
+`You enter Ember Hollow.
+
+Villagers hurry through the streets carrying supplies.
+
+An old keeper watches you from the doorway of a ruined inn.
+
+"The ruins have awakened," he whispers.
+
+Then something crashes in the forest beyond the village.`;
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="talkKeeper()">🧙 Speak with the Keeper</button>
+    <button onclick="exploreForest()">🌲 Investigate the Crash</button>
+  `;
+}
+
+function talkKeeper() {
+
+  document.getElementById("story").textContent =
+`The keeper studies you carefully.
+
+"There is an old dungeon beneath the forest," he says.
+
+"For generations it was sealed.
+
+Three nights ago, the seal broke."
+
+He points toward the northern road.
+
+"Whatever came out is still nearby."`;
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="exploreForest()">🌲 Follow the Northern Road</button>
+    <button onclick="inspectRuins()">🏚️ Search the Ruins</button>
+  `;
+}
+
+function exploreForest() {
+
+  document.getElementById("location").textContent =
+    "Whispering Forest";
+
+  document.getElementById("story").textContent =
+`You enter the forest.
+
+The trees grow unnaturally close together.
+
+A trail of strange black ash leads deeper into the woods.
+
+You hear movement ahead.
+
+Something is watching you.`;
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="forestEncounter()">⚔️ Follow the Ash Trail</button>
+    <button onclick="returnVillage()">🏘️ Return to the Village</button>
+  `;
+}
+
+function inspectRuins() {
+
+  document.getElementById("location").textContent =
+    "Ancient Ruins";
+
+  document.getElementById("story").textContent =
+`Broken stone towers rise from the earth.
+
+At the center of the ruins stands a sealed doorway.
+
+A faint red glow leaks through the cracks.
+
+You place your hand against the ancient stone.
+
+Something on the other side notices you.`;
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="openDoor()">🔥 Touch the Seal</button>
+    <button onclick="returnVillage()">🏘️ Return to Ember Hollow</button>
+  `;
+}
+
+function forestEncounter() {
+
+  document.getElementById("story").textContent =
+`A shadow moves between the trees.
+
+A creature steps onto the trail.
+
+Your first real battle is about to begin.`;
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="attackEnemy()">⚔️ Attack</button>
+    <button onclick="fleeBattle()">🏃 Retreat</button>
+  `;
+}
+
+function attackEnemy() {
+
+  hero.hp -= 10;
+
+  document.getElementById("story").textContent =
+`You strike the creature.
+
+It recoils into the darkness.
+
+The forest falls silent.
+
+You survived your first encounter.`;
+
+  updateStats();
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="continueForest()">🌲 Continue Deeper</button>
+  `;
+}
+
+function fleeBattle() {
+
+  document.getElementById("story").textContent =
+`You retreat through the trees and return to the road.
+
+Whatever was hunting you does not follow.`;
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="returnVillage()">🏘️ Return to Ember Hollow</button>
+  `;
+}
+
+function continueForest() {
+
+  document.getElementById("story").textContent =
+`The ash trail continues north.
+
+Far ahead, beneath the roots of an enormous tree, you discover a staircase descending into darkness.
+
+The dungeon has found you.`;
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="enterDungeon()">🗝️ Enter the Dungeon</button>
+  `;
+}
+
+function openDoor() {
+
+  document.getElementById("story").textContent =
+`The seal cracks.
+
+Ancient fire pours from the doorway.
+
+The ruins tremble.
+
+A staircase descends beneath the earth.
+
+You have discovered the entrance to the Ashen Depths.`;
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="enterDungeon()">🔥 Enter the Ashen Depths</button>
+  `;
+}
+
+function enterDungeon() {
+
+  document.getElementById("location").textContent =
+    "The Ashen Depths";
+
+  document.getElementById("story").textContent =
+`Cold stone surrounds you.
+
+The entrance closes behind you.
+
+Ahead, three passages disappear into darkness.
+
+Somewhere below, something enormous moves.
+
+Your adventure has truly begun.`;
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="leftPath()">⬅️ Take the Left Passage</button>
+    <button onclick="middlePath()">⬆️ Take the Central Passage</button>
+    <button onclick="rightPath()">➡️ Take the Right Passage</button>
+  `;
+}
+
+function leftPath() {
+  dungeonChoice("The left passage leads toward a chamber filled with ancient weapons.");
+}
+
+function middlePath() {
+  dungeonChoice("The central passage descends toward a distant red glow.");
+}
+
+function rightPath() {
+  dungeonChoice("The right passage echoes with strange whispers.");
+}
+
+function dungeonChoice(text) {
+
+  document.getElementById("story").textContent =
+    text + "\n\nYour next choice may determine what awakens below.";
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="enterDungeon()">🔦 Continue Exploring</button>
+  `;
+}
+
+function returnVillage() {
+
+  document.getElementById("location").textContent =
+    "Ember Hollow";
+
+  document.getElementById("story").textContent =
+`You return to Ember Hollow.
+
+The villagers are still preparing for whatever is coming.
+
+Your journey is only beginning.`;
+
+  document.getElementById("choices").innerHTML = `
+    <button onclick="talkKeeper()">🧙 Speak with the Keeper</button>
+    <button onclick="exploreForest()">🌲 Explore the Forest</button>
+    <button onclick="inspectRuins()">🏚️ Investigate the Ruins</button>
+  `;
+}
+
+</script>
+
+</body>
+</html>
