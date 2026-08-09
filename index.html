@@ -1,58 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ashen Realms Button Test</title>
-<style>
-body{
-background:#100d0b;
-color:#eadcc8;
-font-family:Georgia,serif;
-padding:20px;
-}
-.panel{
-background:#1c1511;
-border:1px solid #80552c;
-border-radius:12px;
-padding:20px;
-margin-bottom:20px;
-}
-button{
-display:block;
-width:100%;
-padding:18px;
-margin:10px 0;
-background:#291d15;
-color:#eadcc8;
-border:1px solid #80552c;
-border-radius:8px;
-font-size:18px;
-}
-#test{
-display:none;
-}
-#test:target{
-display:block;
-}
-</style>
+<title>Ashen Realms Test</title>
 </head>
 <body>
-<div class="panel">
-<h1>🔥 Ashen Realms</h1>
-<p>Button test</p>
-<a href="#test">
-<button type="button">⚔️ TEST BUTTON</button>
-</a>
-</div>
-<div id="test" class="panel">
-<h2>✅ IT WORKS!</h2>
-<p>
-The button itself is working correctly.
-</p>
-<p>
-This means the problem is specifically with JavaScript on the live page.
-</p>
-</div>
+<h1>🔥 ASHEN REALMS TEST</h1>
+<button type="button" onclick="document.getElementById('message').innerHTML='✅ THE BUTTON WORKS!'">
+TEST BUTTON
+</button>
+<p id="message"></p>
 </body>
 </html>
