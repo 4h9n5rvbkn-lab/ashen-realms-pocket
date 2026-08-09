@@ -78,7 +78,9 @@ line-height:1.7;
 white-space:pre-line;
 }
 
-.location,.companion,.enemy{
+.location,
+.companion,
+.enemy{
 border:1px solid #604329;
 padding:12px;
 border-radius:8px;
@@ -100,6 +102,13 @@ color:#d99a45;
 font-weight:bold;
 }
 
+.quest{
+border:1px solid #80552c;
+padding:12px;
+border-radius:8px;
+margin:8px 0;
+}
+
 .hidden{
 display:none !important;
 }
@@ -109,8 +118,6 @@ display:none !important;
 <body>
 
 <div id="game">
-
-<!-- TITLE -->
 
 <section id="title" class="panel">
 
@@ -136,15 +143,16 @@ Your legend begins now.
 </section>
 
 
-<!-- CHARACTER CREATION -->
-
 <section id="creation" class="panel hidden">
 
 <h2>Create Your Hero</h2>
 
 <label>Name</label>
 
-<input id="nameInput" placeholder="Enter hero name">
+<input
+id="nameInput"
+placeholder="Enter hero name"
+>
 
 <button id="randomNameButton" type="button">
 🎲 Random Name
@@ -181,8 +189,6 @@ Continue
 </section>
 
 
-<!-- GAME -->
-
 <section id="gameScreen" class="hidden">
 
 <div class="panel">
@@ -193,7 +199,8 @@ Continue
 
 <div class="stat">
 ❤️ HP:
-<span id="hp"></span>/<span id="maxHp"></span>
+<span id="hp"></span> /
+<span id="maxHp"></span>
 </div>
 
 <div class="stat">
@@ -222,7 +229,6 @@ Continue
 </div>
 
 </div>
-
 </div>
 
 
@@ -231,7 +237,14 @@ Continue
 <div id="choices" class="panel"></div>
 
 
-<!-- MAP -->
+<div class="panel">
+
+<h3>📜 Active Quests</h3>
+
+<div id="quests"></div>
+
+</div>
+
 
 <div class="panel">
 
@@ -242,8 +255,6 @@ Continue
 </div>
 
 
-<!-- EQUIPMENT -->
-
 <div class="panel">
 
 <h3>⚔️ Equipment</h3>
@@ -253,8 +264,6 @@ Continue
 </div>
 
 
-<!-- PARTY -->
-
 <div class="panel">
 
 <h3>👥 Party</h3>
@@ -263,8 +272,6 @@ Continue
 
 </div>
 
-
-<!-- INVENTORY -->
 
 <div class="panel">
 
@@ -292,8 +299,6 @@ Continue
 </section>
 
 
-<!-- HERO SHEET -->
-
 <section id="heroSheet" class="panel hidden">
 
 <h2>📜 Hero Sheet</h2>
@@ -306,8 +311,6 @@ Return
 
 </section>
 
-
-<!-- COMBAT -->
 
 <section id="combat" class="hidden">
 
@@ -582,7 +585,9 @@ forestQuest:0,
 
 forestTrailFound:false,
 
-forestBruteDefeated:false
+forestTraveler:false,
+
+forestCache:false
 
 };
 
@@ -596,59 +601,58 @@ let enemy=null;
    ELEMENTS
 ========================= */
 
-const title=document.getElementById("title");
+const title=
+document.getElementById("title");
 
-const creation=document.getElementById("creation");
+const creation=
+document.getElementById("creation");
 
-const gameScreen=document.getElementById("gameScreen");
+const gameScreen=
+document.getElementById("gameScreen");
 
-const combat=document.getElementById("combat");
+const combat=
+document.getElementById("combat");
 
-const heroSheet=document.getElementById("heroSheet");
+const heroSheet=
+document.getElementById("heroSheet");
 
-const choices=document.getElementById("choices");
+const choices=
+document.getElementById("choices");
 
 
 /* =========================
    MAIN BUTTONS
 ========================= */
 
-document.getElementById("beginButton").addEventListener(
-"click",
-function(){
+document.getElementById("beginButton")
+.addEventListener("click",function(){
 
 title.classList.add("hidden");
 
 creation.classList.remove("hidden");
 
-}
-);
+});
 
 
-document.getElementById("continueButton").addEventListener(
-"click",
-function(){
+document.getElementById("continueButton")
+.addEventListener("click",function(){
 
 loadGame();
 
-}
-);
+});
 
 
-document.getElementById("randomNameButton").addEventListener(
-"click",
-function(){
+document.getElementById("randomNameButton")
+.addEventListener("click",function(){
 
 document.getElementById("nameInput").value=
 randomItem(names);
 
-}
-);
+});
 
 
-document.getElementById("randomHeroButton").addEventListener(
-"click",
-function(){
+document.getElementById("randomHeroButton")
+.addEventListener("click",function(){
 
 document.getElementById("nameInput").value=
 randomItem(names);
@@ -659,48 +663,39 @@ randomItem(races);
 document.getElementById("classInput").value=
 randomItem(classes);
 
-}
-);
+});
 
 
-document.getElementById("startButton").addEventListener(
-"click",
-function(){
+document.getElementById("startButton")
+.addEventListener("click",function(){
 
 startGame();
 
-}
-);
+});
 
 
-document.getElementById("saveButton").addEventListener(
-"click",
-function(){
+document.getElementById("saveButton")
+.addEventListener("click",function(){
 
 saveGame();
 
-}
-);
+});
 
 
-document.getElementById("heroButton").addEventListener(
-"click",
-function(){
+document.getElementById("heroButton")
+.addEventListener("click",function(){
 
 showHeroSheet();
 
-}
-);
+});
 
 
-document.getElementById("closeHeroButton").addEventListener(
-"click",
-function(){
+document.getElementById("closeHeroButton")
+.addEventListener("click",function(){
 
 heroSheet.classList.add("hidden");
 
-}
-);
+});
 
 
 /* =========================
@@ -748,14 +743,12 @@ hero.baseDefense=13;
 
 }
 
-
 if(hero.class==="Ranger"){
 
 hero.baseAttack=15;
 hero.baseDefense=12;
 
 }
-
 
 if(hero.class==="Mage"){
 
@@ -766,14 +759,12 @@ hero.baseDefense=10;
 
 }
 
-
 if(hero.class==="Rogue"){
 
 hero.baseAttack=16;
 hero.baseDefense=14;
 
 }
-
 
 if(hero.class==="Cleric"){
 
@@ -789,17 +780,11 @@ hero.weapon="Rusty Sword";
 
 hero.armor="Traveler's Clothes";
 
-
 hero.inventory={
-
 Potion:3,
-
 "Rusty Sword":1,
-
 "Traveler's Clothes":1
-
 };
-
 
 hero.companions=[];
 
@@ -811,8 +796,9 @@ hero.forestQuest=0;
 
 hero.forestTrailFound=false;
 
-hero.forestBruteDefeated=false;
+hero.forestTraveler=false;
 
+hero.forestCache=false;
 
 currentLocation="Ember Hollow";
 
@@ -821,12 +807,11 @@ creation.classList.add("hidden");
 
 title.classList.add("hidden");
 
-combat.classList.add("hidden");
-
 heroSheet.classList.add("hidden");
 
-gameScreen.classList.remove("hidden");
+combat.classList.add("hidden");
 
+gameScreen.classList.remove("hidden");
 
 showVillage();
 
@@ -861,19 +846,28 @@ return hero.baseDefense+
 
 function updateUI(){
 
-document.getElementById("hp").textContent=hero.hp;
+document.getElementById("hp").textContent=
+hero.hp;
 
-document.getElementById("maxHp").textContent=hero.maxHp;
+document.getElementById("maxHp").textContent=
+hero.maxHp;
 
-document.getElementById("level").textContent=hero.level;
+document.getElementById("level").textContent=
+hero.level;
 
-document.getElementById("attack").textContent=getAttack();
+document.getElementById("attack").textContent=
+getAttack();
 
-document.getElementById("defense").textContent=getDefense();
+document.getElementById("defense").textContent=
+getDefense();
 
-document.getElementById("xp").textContent=hero.xp;
+document.getElementById("xp").textContent=
+hero.xp;
 
-document.getElementById("gold").textContent=hero.gold;
+document.getElementById("gold").textContent=
+hero.gold;
+
+updateQuests();
 
 updateMap();
 
@@ -887,7 +881,7 @@ updateInventory();
 
 
 /* =========================
-   CHOICE SYSTEM
+   CHOICES
 ========================= */
 
 function clearChoices(){
@@ -906,16 +900,62 @@ button.type="button";
 
 button.textContent=text;
 
-button.addEventListener(
-"click",
-function(){
+button.addEventListener("click",function(){
 
 action();
 
-}
-);
+});
 
 choices.appendChild(button);
+
+}
+
+
+/* =========================
+   QUESTS
+========================= */
+
+function updateQuests(){
+
+let html="";
+
+if(hero.forestQuest<2){
+
+html+=
+"<div class='quest'>"+
+"<strong>🐺 Trouble in the Whispering Forest</strong>"+
+"<br><br>"+
+"Defeat Ash Wolves: "+
+hero.forestQuest+
+"/2"+
+"</div>";
+
+}
+
+else{
+
+html+=
+"<div class='quest'>"+
+"✅ <strong>Ash Wolves Defeated</strong>"+
+"</div>";
+
+}
+
+
+if(hero.forestTrailFound){
+
+html+=
+"<div class='quest'>"+
+"🗼 <strong>Ruined Watchtower</strong>"+
+"<br>"+
+"You discovered an old watchtower deep in the forest."+
+"</div>";
+
+}
+
+
+document.getElementById("quests").innerHTML=
+html;
 
 }
 
@@ -934,69 +974,49 @@ combat.classList.add("hidden");
 
 heroSheet.classList.add("hidden");
 
-
 document.getElementById("locationTitle").textContent=
 "Ember Hollow";
 
-
 document.getElementById("story").textContent=
-
 "Ember Hollow is frightened.\n\n"+
-
 "Smoke rises beyond the village walls.\n\n"+
-
 "A keeper watches you from the ruined inn.\n\n"+
-
 "A young ranger stands near the northern road.\n\n"+
-
 "A warrior sits beside the fire.\n\n"+
-
-"The road leading into the forest waits.";
+"Beyond the northern road lies the Whispering Forest.\n\n"+
+"Something has been moving among the trees.";
 
 clearChoices();
 
-
-/*
-   IMPORTANT:
-   The button remains named
-   EXPLORE FOREST.
-*/
-
 addChoice(
-"🌲 Explore Forest",
+"🌲 Explore the Forest",
 showForest
 );
-
 
 addChoice(
 "🏚️ Investigate the Ruins",
 showRuins
 );
 
-
 addChoice(
 "🏹 Recruit Lyra",
 recruitLyra
 );
-
 
 addChoice(
 "🛡️ Recruit Brom",
 recruitBrom
 );
 
-
 addChoice(
 "🔮 Recruit Selene",
 recruitSelene
 );
 
-
 addChoice(
 "🧪 Buy Potion — 10 Gold",
 buyPotion
 );
-
 
 updateUI();
 
@@ -1004,7 +1024,7 @@ updateUI();
 
 
 /* =========================
-   WHISPERING FOREST
+   FOREST
 ========================= */
 
 function showForest(){
@@ -1019,36 +1039,35 @@ combat.classList.add("hidden");
 
 heroSheet.classList.add("hidden");
 
-
 document.getElementById("locationTitle").textContent=
 "Whispering Forest";
 
 
-let forestStory=
+let text=
 "You enter the Whispering Forest.\n\n"+
+"Black ash covers the ground.\n\n"+
+"The trees are unnaturally quiet.\n\n"+
+"A cold wind moves through the branches.";
 
-"Black ash covers the ground between ancient trees.\n\n"+
 
-"The wind carries strange whispers through the branches.\n\n";
+if(hero.forestQuest>=2){
+
+text+=
+"\n\nThe wolves that once hunted these woods have been defeated.";
+
+}
 
 
 if(hero.forestTrailFound){
 
-forestStory+=
-"The ruined watchtower stands in the distance.\n\n"+
-"You can feel that something deeper in the forest is watching you.";
-
-}else{
-
-forestStory+=
-"A low growl comes from somewhere ahead.\n\n"+
-"An old trail disappears beneath the trees.";
+text+=
+"\n\nYou remember the old trail leading toward the ruined watchtower.";
 
 }
 
 
 document.getElementById("story").textContent=
-forestStory;
+text;
 
 
 clearChoices();
@@ -1066,12 +1085,21 @@ forestTrail
 );
 
 
-if(hero.forestTrailFound &&
-!hero.forestBruteDefeated){
+if(!hero.forestCache){
 
 addChoice(
-"👹 Investigate the Watchtower",
-forestBruteBattle
+"🎁 Search the Ash-Covered Clearing",
+forestCache
+);
+
+}
+
+
+if(!hero.forestTraveler){
+
+addChoice(
+"👤 Approach the Mysterious Traveler",
+forestTraveler
 );
 
 }
@@ -1094,18 +1122,58 @@ updateUI();
 
 function forestEncounter(){
 
+const roll=
+Math.random();
+
+
+if(roll<0.65){
+
 document.getElementById("story").textContent=
-
 "You push through the ash-covered branches.\n\n"+
-
-"Two yellow eyes appear between the trees.\n\n"+
-
-"An Ash Wolf steps from the darkness!";
-
+"An Ash Wolf steps from the darkness!\n\n"+
+"It lowers its head and prepares to attack.";
 
 startCombat(
 enemies[0],
 "Whispering Forest"
+);
+
+return;
+
+}
+
+
+if(roll<0.85){
+
+document.getElementById("story").textContent=
+"The branches shake violently.\n\n"+
+"A Ruins Goblin bursts from the undergrowth!";
+
+startCombat(
+enemies[1],
+"Whispering Forest"
+);
+
+return;
+
+}
+
+
+document.getElementById("story").textContent=
+"The movement stops.\n\n"+
+"You find fresh claw marks carved into an ancient tree.\n\n"+
+"Whatever made them is much larger than a wolf.";
+
+clearChoices();
+
+addChoice(
+"🌲 Continue Exploring",
+showForest
+);
+
+addChoice(
+"🏘️ Return to Ember Hollow",
+showVillage
 );
 
 }
@@ -1119,31 +1187,176 @@ function forestTrail(){
 
 hero.forestTrailFound=true;
 
-hero.gold+=15;
-
-
 document.getElementById("locationTitle").textContent=
 "Whispering Forest";
 
-
 document.getElementById("story").textContent=
-
-"The old trail leads deeper into the forest.\n\n"+
-
-"You discover a ruined watchtower hidden beneath the trees.\n\n"+
-
-"Inside the abandoned tower you find a forgotten supply chest.\n\n"+
-
-"You find 15 gold.\n\n"+
-
-"But something large has been moving around the tower.";
+"The old trail disappears beneath the ash.\n\n"+
+"You follow it deeper into the forest.\n\n"+
+"After several minutes you discover the remains of a ruined watchtower.\n\n"+
+"Inside the tower you find an abandoned supply chest.\n\n"+
+"Something has already opened it—but a few useful supplies remain.";
 
 clearChoices();
 
+addChoice(
+"🎁 Search the Watchtower",
+searchWatchtower
+);
 
 addChoice(
-"👹 Investigate the Watchtower",
-forestBruteBattle
+"🌲 Continue Exploring",
+showForest
+);
+
+addChoice(
+"🏘️ Return to Ember Hollow",
+showVillage
+);
+
+updateUI();
+
+}
+
+
+/* =========================
+   WATCHTOWER
+========================= */
+
+function searchWatchtower(){
+
+const gold=
+random(10,25);
+
+hero.gold+=gold;
+
+const loot=
+randomItem([
+"Potion",
+"Potion",
+"Iron Sword"
+]);
+
+hero.inventory[loot]=
+(hero.inventory[loot]||0)+1;
+
+
+document.getElementById("story").textContent=
+"You search the ruined watchtower.\n\n"+
+"You find "+gold+" gold.\n\n"+
+"You also discover: "+
+loot+
+".\n\n"+
+"Among the rubble you find an old map showing a path toward the Ancient Ruins.";
+
+unlock("Ancient Ruins");
+
+clearChoices();
+
+addChoice(
+"🌲 Return to the Forest",
+showForest
+);
+
+addChoice(
+"🏚️ Travel to the Ancient Ruins",
+showRuins
+);
+
+addChoice(
+"🏘️ Return to Ember Hollow",
+showVillage
+);
+
+updateUI();
+
+}
+
+
+/* =========================
+   FOREST CACHE
+========================= */
+
+function forestCache(){
+
+hero.forestCache=true;
+
+const gold=
+random(8,20);
+
+hero.gold+=gold;
+
+hero.inventory.Potion=
+(hero.inventory.Potion||0)+1;
+
+
+document.getElementById("story").textContent=
+"You search the ash-covered clearing.\n\n"+
+"Buried beneath a fallen tree you discover an old traveler's pack.\n\n"+
+"You find:\n\n"+
+"🪙 "+gold+" gold\n"+
+"🧪 1 Potion\n\n"+
+"Whoever left the pack did not leave willingly.";
+
+clearChoices();
+
+addChoice(
+"🌲 Keep Exploring",
+showForest
+);
+
+addChoice(
+"🏘️ Return to Ember Hollow",
+showVillage
+);
+
+updateUI();
+
+}
+
+
+/* =========================
+   MYSTERIOUS TRAVELER
+========================= */
+
+function forestTraveler(){
+
+hero.forestTraveler=true;
+
+document.getElementById("story").textContent=
+"A hooded traveler stands beside an ancient tree.\n\n"+
+"He watches you approach but does not reach for his weapon.\n\n"+
+"\"The forest has changed,\" he says.\n\n"+
+"\"Something beneath the ruins is waking. If you intend to survive, search the old watchtower.\"";
+
+
+hero.gold+=5;
+
+
+clearChoices();
+
+addChoice(
+"💬 Ask about the ruins",
+function(){
+
+document.getElementById("story").textContent=
+"The traveler looks toward the distant ruins.\n\n"+
+"\"The seal beneath them was built to keep something out—not to keep something in.\"\n\n"+
+"He disappears into the trees.";
+
+clearChoices();
+
+addChoice(
+"🌲 Continue Exploring",
+showForest
+);
+
+addChoice(
+"🏘️ Return to Ember Hollow",
+showVillage
+);
+
+}
 );
 
 
@@ -1152,37 +1365,12 @@ addChoice(
 showForest
 );
 
-
 addChoice(
 "🏘️ Return to Ember Hollow",
 showVillage
 );
 
-
 updateUI();
-
-}
-
-
-/* =========================
-   FOREST BRUTE
-========================= */
-
-function forestBruteBattle(){
-
-document.getElementById("story").textContent=
-
-"You approach the ruined watchtower.\n\n"+
-
-"The ground shakes beneath your feet.\n\n"+
-
-"A massive Forest Brute emerges from the ruins!";
-
-
-startCombat(
-enemies[3],
-"Whispering Forest"
-);
 
 }
 
@@ -1201,43 +1389,31 @@ gameScreen.classList.remove("hidden");
 
 combat.classList.add("hidden");
 
-heroSheet.classList.add("hidden");
-
-
 document.getElementById("locationTitle").textContent=
 "Ancient Ruins";
 
-
 document.getElementById("story").textContent=
-
 "Broken towers rise from the earth.\n\n"+
-
 "Ancient symbols cover the stones.\n\n"+
-
 "At the center stands a sealed stone doorway.\n\n"+
-
 "A faint red glow leaks through the cracks.";
 
 clearChoices();
-
 
 addChoice(
 "🔥 Investigate the Ancient Seal",
 investigateSeal
 );
 
-
 addChoice(
 "⚔️ Search the Ruins",
 ruinBattle
 );
 
-
 addChoice(
 "🏘️ Return to Ember Hollow",
 showVillage
 );
-
 
 updateUI();
 
@@ -1245,10 +1421,33 @@ updateUI();
 
 
 /* =========================
-   ANCIENT SEAL
+   SEAL
 ========================= */
 
 function investigateSeal(){
+
+if(hero.unlocked.includes("Ashen Depths")){
+
+document.getElementById("story").textContent=
+"The ancient seal is already open.\n\n"+
+"Dark stairs descend beneath the ruins.";
+
+clearChoices();
+
+addChoice(
+"🔥 Enter the Ashen Depths",
+showDepths
+);
+
+addChoice(
+"🏘️ Return to Ember Hollow",
+showVillage
+);
+
+return;
+
+}
+
 
 unlock("Ashen Depths");
 
@@ -1256,41 +1455,28 @@ hero.gold+=30;
 
 hero.xp+=50;
 
-
 document.getElementById("story").textContent=
-
 "You place your hand against the ancient seal.\n\n"+
-
 "The symbols begin to glow.\n\n"+
-
 "The stone door opens.\n\n"+
-
 "You discover stairs leading into the Ashen Depths.\n\n"+
-
 "QUEST COMPLETE\n\n"+
-
 "Investigate the Ancient Ruins\n\n"+
-
 "+50 XP\n"+
-
 "+30 Gold\n\n"+
-
 "A new location has been unlocked.";
 
 clearChoices();
-
 
 addChoice(
 "🔥 Enter the Ashen Depths",
 showDepths
 );
 
-
 addChoice(
 "🏘️ Return to Ember Hollow",
 showVillage
 );
-
 
 checkLevel();
 
@@ -1327,41 +1513,31 @@ gameScreen.classList.remove("hidden");
 
 combat.classList.add("hidden");
 
-
 document.getElementById("locationTitle").textContent=
 "Ashen Depths";
 
-
 document.getElementById("story").textContent=
-
 "Cold stone surrounds you.\n\n"+
-
 "The entrance closes behind you.\n\n"+
-
 "Ancient fire burns in the darkness.\n\n"+
-
 "Something enormous moves below.";
 
 clearChoices();
-
 
 addChoice(
 "⬇️ Descend Deeper",
 depthEncounter
 );
 
-
 addChoice(
 "👑 Challenge the Guardian",
 guardianBattle
 );
 
-
 addChoice(
 "🏘️ Return to Ember Hollow",
 showVillage
 );
-
 
 updateUI();
 
@@ -1394,18 +1570,14 @@ enemies[4],
 
 function recruitCompanion(key){
 
-const companion=
-companionData[key];
-
-
 if(hero.companions.some(function(c){
 
-return c.name===companion.name;
+return c.name===companionData[key].name;
 
 })){
 
 document.getElementById("story").textContent=
-companion.name+
+companionData[key].name+
 " is already traveling with you.";
 
 return;
@@ -1414,16 +1586,18 @@ return;
 
 
 hero.companions.push(
-JSON.parse(JSON.stringify(companion))
+JSON.parse(
+JSON.stringify(
+companionData[key]
+)
+)
 );
 
 
 document.getElementById("story").textContent=
+companionData[key].name+
+" joins your party!";
 
-companion.name+
-" joins your party.\n\n"+
-
-"Your party has grown stronger.";
 
 updateUI();
 
@@ -1476,6 +1650,7 @@ hero.inventory.Potion=
 document.getElementById("story").textContent=
 "The keeper gives you a healing potion.";
 
+
 updateUI();
 
 }
@@ -1524,38 +1699,29 @@ hero.unlocked.includes(place.name);
 if(unlocked){
 
 html+=
-
 "<div class='location'>"+
-
 "<strong>📍 "+
 place.name+
 "</strong>"+
-
 "<br>"+
-
 "<span class='small'>"+
 place.description+
 "</span>"+
-
 "<button type='button' class='travelButton'>"+
 "Travel Here"+
 "</button>"+
-
 "</div>";
 
-}else{
+}
+
+else{
 
 html+=
-
 "<div class='location'>"+
-
 "🔒 "+
 place.name+
-
 "<br>"+
-
 "<span class='small'>Locked</span>"+
-
 "</div>";
 
 }
@@ -1601,19 +1767,19 @@ showVillage();
 
 }
 
-else if(place==="Whispering Forest"){
+if(place==="Whispering Forest"){
 
 showForest();
 
 }
 
-else if(place==="Ancient Ruins"){
+if(place==="Ancient Ruins"){
 
 showRuins();
 
 }
 
-else if(place==="Ashen Depths"){
+if(place==="Ashen Depths"){
 
 showDepths();
 
@@ -1631,31 +1797,19 @@ function updateEquipment(){
 document.getElementById("equipment").innerHTML=
 
 "<div class='item'>"+
-
 "🗡️ <strong>Weapon:</strong> "+
-
 hero.weapon+
-
 " <span class='equipped'>(+"+
-
 (weapons[hero.weapon]?.attack||0)+
-
 " Attack)</span>"+
-
 "</div>"+
 
 "<div class='item'>"+
-
 "🛡️ <strong>Armor:</strong> "+
-
 hero.armor+
-
 " <span class='equipped'>(+"+
-
 (armor[hero.armor]?.defense||0)+
-
 " Defense)</span>"+
-
 "</div>";
 
 }
@@ -1670,7 +1824,8 @@ function updateInventory(){
 let html="";
 
 
-Object.keys(hero.inventory).forEach(function(item){
+Object.keys(hero.inventory)
+.forEach(function(item){
 
 if(hero.inventory[item]<=0){
 
@@ -1680,9 +1835,7 @@ return;
 
 
 html+=
-
 "<div class='item'>"+
-
 "<strong>"+
 item+
 "</strong> × "+
@@ -1694,9 +1847,13 @@ if(weapons[item]){
 if(hero.weapon===item){
 
 html+=
-"<div class='equipped'>✓ Equipped</div>";
+"<div class='equipped'>"+
+"✓ Equipped"+
+"</div>";
 
-}else{
+}
+
+else{
 
 html+=
 "<button type='button' class='equipWeaponButton'>"+
@@ -1713,9 +1870,13 @@ if(armor[item]){
 if(hero.armor===item){
 
 html+=
-"<div class='equipped'>✓ Equipped</div>";
+"<div class='equipped'>"+
+"✓ Equipped"+
+"</div>";
 
-}else{
+}
+
+else{
 
 html+=
 "<button type='button' class='equipArmorButton'>"+
@@ -1743,9 +1904,8 @@ document.getElementById("inventory").innerHTML=
 html;
 
 
-document.querySelectorAll(
-".equipWeaponButton"
-).forEach(function(button){
+document.querySelectorAll(".equipWeaponButton")
+.forEach(function(button){
 
 button.addEventListener(
 "click",
@@ -1764,9 +1924,8 @@ equipWeapon(item);
 });
 
 
-document.querySelectorAll(
-".equipArmorButton"
-).forEach(function(button){
+document.querySelectorAll(".equipArmorButton")
+.forEach(function(button){
 
 button.addEventListener(
 "click",
@@ -1795,15 +1954,14 @@ return;
 
 }
 
+
 hero.weapon=item;
 
 
 document.getElementById("story").textContent=
-
 "You equip the "+
 item+
 ".\n\n"+
-
 weapons[item].description;
 
 
@@ -1820,15 +1978,14 @@ return;
 
 }
 
+
 hero.armor=item;
 
 
 document.getElementById("story").textContent=
-
 "You equip the "+
 item+
 ".\n\n"+
-
 armor[item].description;
 
 
@@ -1859,24 +2016,20 @@ let html="";
 hero.companions.forEach(function(c){
 
 html+=
-
 "<div class='companion'>"+
-
 "<strong>"+
 c.name+
 "</strong>"+
-
 "<br>"+
 c.class+
-
-"<br>❤️ "+
+"<br>"+
+"❤️ "+
 c.hp+
 "/"+
 c.maxHp+
-
-"<br>⚔️ Attack: "+
+"<br>"+
+"⚔️ Attack: "+
 c.attack+
-
 "</div>";
 
 });
@@ -1926,20 +2079,21 @@ heroSheet.classList.add("hidden");
 combat.classList.remove("hidden");
 
 
-document.getElementById("enemyName").textContent=
-enemy.name;
+document.getElementById("enemyName")
+.textContent=enemy.name;
 
-document.getElementById("enemyHp").textContent=
-enemy.hp;
+document.getElementById("enemyHp")
+.textContent=enemy.hp;
 
-document.getElementById("enemyMaxHp").textContent=
-enemy.maxHp;
+document.getElementById("enemyMaxHp")
+.textContent=enemy.maxHp;
 
-document.getElementById("enemyDescription").textContent=
-enemy.description;
+document.getElementById("enemyDescription")
+.textContent=enemy.description;
 
-document.getElementById("combatLog").textContent=
 
+document.getElementById("combatLog")
+.textContent=
 "A "+
 enemy.name+
 " attacks!";
@@ -1959,7 +2113,6 @@ showCombatParty();
 function showCombatParty(){
 
 let html=
-
 hero.name+
 ": ❤️ "+
 hero.hp+
@@ -1967,10 +2120,10 @@ hero.hp+
 hero.maxHp;
 
 
-hero.companions.forEach(function(c){
+hero.companions.forEach(
+function(c){
 
 html+=
-
 "<br>"+
 c.name+
 ": ❤️ "+
@@ -1978,11 +2131,12 @@ c.hp+
 "/"+
 c.maxHp;
 
-});
+}
+);
 
 
-document.getElementById("combatParty").innerHTML=
-html;
+document.getElementById("combatParty")
+.innerHTML=html;
 
 }
 
@@ -1993,7 +2147,8 @@ html;
 
 function clearCombatButtons(){
 
-document.getElementById("combatChoices").innerHTML="";
+document.getElementById("combatChoices")
+.innerHTML="";
 
 }
 
@@ -2017,8 +2172,7 @@ action();
 );
 
 
-document
-.getElementById("combatChoices")
+document.getElementById("combatChoices")
 .appendChild(button);
 
 }
@@ -2028,30 +2182,25 @@ function showCombatButtons(){
 
 clearCombatButtons();
 
-
 addCombatButton(
 "⚔️ Attack",
 playerAttack
 );
-
 
 addCombatButton(
 "✨ Special Attack",
 specialAttack
 );
 
-
 addCombatButton(
 "👥 Companion Attack",
 companionAttack
 );
 
-
 addCombatButton(
 "🧪 Drink Potion",
 usePotion
 );
-
 
 addCombatButton(
 "🏃 Retreat",
@@ -2159,7 +2308,8 @@ function companionAttack(){
 
 if(hero.companions.length===0){
 
-document.getElementById("combatLog").textContent=
+document.getElementById("combatLog")
+.textContent=
 "No companion is with you.";
 
 return;
@@ -2168,16 +2318,19 @@ return;
 
 
 const living=
-hero.companions.filter(function(c){
+hero.companions.filter(
+function(c){
 
 return c.hp>0;
 
-});
+}
+);
 
 
 if(living.length===0){
 
-document.getElementById("combatLog").textContent=
+document.getElementById("combatLog")
+.textContent=
 "Your companions are unable to fight.";
 
 return;
@@ -2185,7 +2338,8 @@ return;
 }
 
 
-const c=randomItem(living);
+const c=
+randomItem(living);
 
 
 const damage=
@@ -2236,7 +2390,8 @@ function usePotion(){
 
 if(!hero.inventory.Potion){
 
-document.getElementById("combatLog").textContent=
+document.getElementById("combatLog")
+.textContent=
 "You have no potions.";
 
 return;
@@ -2245,7 +2400,6 @@ return;
 
 
 hero.inventory.Potion--;
-
 
 const healing=30;
 
@@ -2297,18 +2451,13 @@ return;
 }
 
 
-document.getElementById("combatLog").textContent=
-
+document.getElementById("combatLog")
+.textContent=
 message+
-
 "\n\n"+
-
 enemy.name+
-
 " attacks for "+
-
 damage+
-
 " damage.";
 
 
@@ -2323,8 +2472,8 @@ updateCombatDisplay();
 
 function updateCombatDisplay(){
 
-document.getElementById("enemyHp").textContent=
-enemy.hp;
+document.getElementById("enemyHp")
+.textContent=enemy.hp;
 
 showCombatParty();
 
@@ -2345,13 +2494,10 @@ hero.gold+=enemy.gold;
 
 
 let reward=
-
 "\n\n🏆 VICTORY!"+
-
 "\n+"+
 enemy.xp+
 " XP"+
-
 "\n+"+
 enemy.gold+
 " Gold";
@@ -2359,7 +2505,8 @@ enemy.gold+
 
 if(enemy.loot&&enemy.loot.length){
 
-const loot=randomItem(enemy.loot);
+const loot=
+randomItem(enemy.loot);
 
 
 hero.inventory[loot]=
@@ -2367,29 +2514,17 @@ hero.inventory[loot]=
 
 
 reward+=
-
 "\n\n🎁 LOOT FOUND\n"+
 loot;
 
 }
 
 
-/* FOREST QUEST */
+/* Forest quest */
 
 if(enemy.name==="Ash Wolf"){
 
 hero.forestQuest++;
-
-
-if(hero.forestQuest===1){
-
-reward+=
-
-"\n\n📜 FOREST QUEST\n"+
-"One Ash Wolf defeated.\n"+
-"Something is driving the creatures deeper into the forest.";
-
-}
 
 
 if(hero.forestQuest>=2){
@@ -2400,49 +2535,23 @@ hero.gold+=25;
 
 
 reward+=
-
 "\n\n📜 QUEST COMPLETE\n"+
-"Defeat the Ash Wolves\n"+
-"+50 XP\n"+
-"+25 Gold";
+"Defeat the Ash Wolves"+
+"\n+50 XP"+
+"\n+25 Gold";
 
 }
 
 }
 
 
-/* FOREST BRUTE */
-
-if(enemy.name==="Forest Brute"){
-
-hero.forestBruteDefeated=true;
-
-hero.xp+=75;
-
-hero.gold+=40;
-
-
-reward+=
-
-"\n\n🌲 FOREST SECRET DISCOVERED\n"+
-
-"The brute was guarding an ancient stone covered in the same symbols found in the ruins.\n\n"+
-
-"+75 XP\n"+
-"+40 Gold";
-
-}
-
-
-/* GUARDIAN */
+/* Boss */
 
 if(enemy.name==="Ashen Guardian"){
 
 reward+=
-
-"\n\n👑 THE GUARDIAN HAS FALLEN!\n"+
-
-"You have reached the heart of the Ashen Depths.";
+"\n\n👑 THE GUARDIAN HAS FALLEN!"+
+"\nYou have reached the heart of the Ashen Depths.";
 
 }
 
@@ -2450,7 +2559,8 @@ reward+=
 checkLevel();
 
 
-document.getElementById("combatLog").textContent=
+document.getElementById("combatLog")
+.textContent=
 message+
 reward;
 
@@ -2485,19 +2595,19 @@ hero.gold-10
 );
 
 
-hero.companions.forEach(function(c){
+hero.companions.forEach(
+function(c){
 
 c.hp=c.maxHp;
 
-});
+}
+);
 
 
-document.getElementById("combatLog").textContent=
-
+document.getElementById("combatLog")
+.textContent=
 "You have been defeated.\n\n"+
-
 "You awaken in Ember Hollow.\n\n"+
-
 "You lose 10 gold.";
 
 
@@ -2528,7 +2638,8 @@ function retreat(){
 
 if(Math.random()<0.7){
 
-document.getElementById("combatLog").textContent=
+document.getElementById("combatLog")
+.textContent=
 "You escape from the battle.";
 
 clearCombatButtons();
@@ -2539,7 +2650,9 @@ addCombatButton(
 endCombat
 );
 
-}else{
+}
+
+else{
 
 enemyTurn(
 "The enemy blocks your escape."
@@ -2592,7 +2705,7 @@ updateUI();
 
 
 /* =========================
-   LEVEL UP
+   LEVELING
 ========================= */
 
 function checkLevel(){
@@ -2632,7 +2745,8 @@ function showHeroSheet(){
 heroSheet.classList.remove("hidden");
 
 
-document.getElementById("heroDetails").innerHTML=
+document.getElementById("heroDetails")
+.innerHTML=
 
 "<p><strong>Name:</strong> "+
 hero.name+
@@ -2678,11 +2792,7 @@ hero.gold+
 
 "<p><strong>Companions:</strong> "+
 hero.companions.length+
-"</p>"+
-
-"<p><strong>Forest Quest:</strong> "+
-hero.forestQuest+
-"/2 Ash Wolves</p>";
+"</p>";
 
 }
 
@@ -2699,7 +2809,8 @@ JSON.stringify(hero)
 );
 
 
-document.getElementById("saveMessage").textContent=
+document.getElementById("saveMessage")
+.textContent=
 "✓ Game saved on this device.";
 
 }
@@ -2712,12 +2823,15 @@ document.getElementById("saveMessage").textContent=
 function loadGame(){
 
 const saved=
-localStorage.getItem("ashenRealmsSave");
+localStorage.getItem(
+"ashenRealmsSave"
+);
 
 
 if(!saved){
 
-document.getElementById("titleMessage").textContent=
+document.getElementById("titleMessage")
+.textContent=
 "No saved adventure found.";
 
 return;
@@ -2727,39 +2841,10 @@ return;
 
 try{
 
-hero=JSON.parse(saved);
-
-
-if(!hero.unlocked){
-
-hero.unlocked=["Ember Hollow"];
-
-}
-
-
-if(hero.forestQuest===undefined){
-
-hero.forestQuest=0;
-
-}
-
-
-if(hero.forestTrailFound===undefined){
-
-hero.forestTrailFound=false;
-
-}
-
-
-if(hero.forestBruteDefeated===undefined){
-
-hero.forestBruteDefeated=false;
-
-}
-
+hero=
+JSON.parse(saved);
 
 currentLocation="Ember Hollow";
-
 
 title.classList.add("hidden");
 
@@ -2771,14 +2856,16 @@ heroSheet.classList.add("hidden");
 
 gameScreen.classList.remove("hidden");
 
-
 showVillage();
 
 updateUI();
 
-}catch(error){
+}
 
-document.getElementById("titleMessage").textContent=
+catch(error){
+
+document.getElementById("titleMessage")
+.textContent=
 "Unable to load the saved game.";
 
 }
